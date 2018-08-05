@@ -4,8 +4,8 @@
 	"info_receipt_on":  "[info] receipt enabled now.",
 	"info_receipt_off": "[info] receipt disabled now.",
 
-	"receipt_admin_receive": "\\[receipt] received from sender: ([%s](tg://user?id=%s))",
-	"receipt_admin_sent": "\\[receipt] replied to receiver: ([%s](tg://user?id=%s))",
+	"receipt_admin_receive": "\\[receipt] received from sender: [(%s)](tg://user?id=%s)",
+	"receipt_admin_sent": "\\[receipt] replied to receiver: [(%s)](tg://user?id=%s)",
 	"receipt_user_sent": "[receipt] your messege have been told to my master.",
 
 	"error_config_noadmin": "[error] Admin config not found, exit...",
