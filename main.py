@@ -113,13 +113,13 @@ def process_msg(bot, update):
 						bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_notsupporttype'])
 						return
 				except Exception as e:
-					if e.message == "Forbidden: bot was blocked by the user.":
+					if e.message == "Forbidden: bot was blocked by the user":
 						bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_receipt_blockedbyuser'])
 					else:
 						bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_receipt_unknown'])
 					return
 				if preference_list[str(CONFIG['Admin'])]['receipt']:
-					bot.send_message(chat_id=CONFIG['Admin'], text=LANG['receipt_admin_sent'] % (preference_list[str(sender_id)]['name'], str(sender_id)), parse_mode=telegram.ParseMode.MARKDOWN, reply_to_message_id=msg_sent_to_user.message_id)
+					bot.send_message(chat_id=CONFIG['Admin'], text=LANG['receipt_admin_sent'] % (preference_list[str(sender_id)]['name'], str(sender_id)), parse_mode=telegram.ParseMode.MARKDOWN, reply_to_message_id=tryf_update_msg.message_id)
 			else:
 				bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_nodata'])
 		else:
