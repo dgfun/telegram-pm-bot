@@ -92,25 +92,25 @@ def process_msg(bot, update):
 	if update.message.from_user.id == CONFIG['Admin']:
 		if update.message.reply_to_message:
 			if message_list.__contains__(str(update.message.reply_to_message.message_id)):
-				sender_id = message_list[str(update.message.reply_to_message.message_id)]['sender_id']
 				tryf_update_msg = update.message
+				sender_id = message_list[str(tryf_update_msg.reply_to_message.message_id)]['sender_id']
 				try:
 					if tryf_update_msg.audio:
-						msg_sent_to_user = bot.send_audio(chat_id=sender_id, audio=tryf_update_msg.audio, caption=tryf_update_msg.caption)
+						bot.send_audio(chat_id=sender_id, audio=tryf_update_msg.audio, caption=tryf_update_msg.caption)
 					elif tryf_update_msg.document:
-						msg_sent_to_user = bot.send_document(chat_id=sender_id, document=tryf_update_msg.document, caption=tryf_update_msg.caption)
+						bot.send_document(chat_id=sender_id, document=tryf_update_msg.document, caption=tryf_update_msg.caption)
 					elif tryf_update_msg.voice:
-						msg_sent_to_user = bot.send_voice(chat_id=sender_id, voice=tryf_update_msg.voice, caption=tryf_update_msg.caption)
+						bot.send_voice(chat_id=sender_id, voice=tryf_update_msg.voice, caption=tryf_update_msg.caption)
 					elif tryf_update_msg.video:
-						msg_sent_to_user = bot.send_video(chat_id=sender_id, video=tryf_update_msg.video, caption=tryf_update_msg.caption)
+						bot.send_video(chat_id=sender_id, video=tryf_update_msg.video, caption=tryf_update_msg.caption)
 					elif tryf_update_msg.sticker:
-						msg_sent_to_user = bot.send_sticker(chat_id=sender_id, sticker=tryf_update_msg.sticker)
+						bot.send_sticker(chat_id=sender_id, sticker=tryf_update_msg.sticker)
 					elif tryf_update_msg.photo:
-						msg_sent_to_user = bot.send_photo(chat_id=sender_id, photo=tryf_update_msg.photo[0], caption=tryf_update_msg.caption)
+						bot.send_photo(chat_id=sender_id, photo=tryf_update_msg.photo[0], caption=tryf_update_msg.caption)
 					elif tryf_update_msg.text_markdown:
-						msg_sent_to_user = bot.send_message(chat_id=sender_id, text=tryf_update_msg.text_markdown, parse_mode=telegram.ParseMode.MARKDOWN)
+						bot.send_message(chat_id=sender_id, text=tryf_update_msg.text_markdown, parse_mode=telegram.ParseMode.MARKDOWN)
 					else:
-						msg_sent_to_user = bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_notsupporttype'])
+						bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_notsupporttype'])
 						return
 				except Exception as e:
 					if e.message == "Forbidden: bot was blocked by the user.":
