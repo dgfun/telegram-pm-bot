@@ -183,9 +183,9 @@ def process_command(bot, update):
 			if (idf_fromuser == CONFIG['Admin']) :
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
-						idf_point_info_msg = update.message.reply_to_message.message_id
-						sender_id = message_list[str(idf_point_info_msg)]['sender_id']
-						bot.send_message(chat_id=idf_fromuser, text=LANG['receipt_admin_receive'] % (preference_list[str(sender_id)]['name'], str(sender_id)), parse_mode=telegram.ParseMode.MARKDOWN, reply_to_message_id=idf_point_info_msg)
+						idf_replytomessege_messegeid = update.message.reply_to_message.message_id
+						sender_id = message_list[str(idf_replytomessege_messegeid)]['sender_id']
+						bot.send_message(chat_id=idf_fromuser, text=LANG['receipt_admin_receive'] % (preference_list[str(sender_id)]['name'], str(sender_id)), parse_mode=telegram.ParseMode.MARKDOWN, reply_to_message_id=idf_replytomessege_messegeid)
 					else:
 						bot.send_message(chat_id=idf_fromuser, text=LANG['error_reply_nodata'])
 			else:
