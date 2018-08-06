@@ -174,11 +174,6 @@ def process_command(bot, update):
 		elif command[0] == 'done' :
 			preference_list[str(idf_fromuser)]['conversation'] = False
 			bot.send_message(chat_id=idf_fromuser, text=LANG['notify_conversation_end'])
-		##admin initiatively launch a conversation to one user
-		elif command[0] == 'launch' :
-			if (idf_fromuser == CONFIG['Admin']) :
-			else:
-				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		##messege-info you point
 		elif command[0] == 'messege_info' :
 			if (idf_fromuser == CONFIG['Admin']) :
