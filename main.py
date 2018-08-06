@@ -19,10 +19,6 @@ PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
 # loading config files
 CONFIG = json.loads(open(PATH + 'config.json', 'r', encoding='utf-8').read())
 LANG   = json.loads(open(PATH + 'lang/' + CONFIG['Lang'] + '.json', 'r', encoding='utf-8').read())
-# def save_config
-def save_config():
-	with open(PATH + 'config.json', 'w', encoding='utf-8') as f:
-		f.write(json.dumps(CONFIG, indent=4))
 
 
 # check config
