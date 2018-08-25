@@ -17,7 +17,7 @@ PATH = os.path.dirname(os.path.realpath(__file__)) + '/'
 
 
 # loading config files
-CONFIG = json.loads(open(PATH + 'config.json', 'r', encoding='utf-8').read())
+CONFIG = json.loads(open(PATH + 'conf/config.json', 'r', encoding='utf-8').read())
 LANG   = json.loads(open(PATH + 'lang/' + CONFIG['Lang'] + '.json', 'r', encoding='utf-8').read())
 
 
@@ -32,28 +32,28 @@ if CONFIG['Token'] == "0" :
 
 # messege lock
 MESSAGE_LOCK = False
-message_list = json.loads(open(PATH + 'data.json', 'r', encoding='utf-8').read())
+message_list = json.loads(open(PATH + 'data/data.json', 'r', encoding='utf-8').read())
 # def save_data
 def save_data():
 	global MESSAGE_LOCK
 	while MESSAGE_LOCK:
 		time.sleep(0.1)
 	MESSAGE_LOCK = True
-	with open(PATH + 'data.json', 'w', encoding='utf-8') as f:
+	with open(PATH + 'data/data.json', 'w', encoding='utf-8') as f:
 		f.write(json.dumps(message_list))
 	MESSAGE_LOCK = False
 
 
 # preference lock
 PREFERENCE_LOCK = False
-preference_list = json.loads(open(PATH + 'preference.json', 'r', encoding='utf-8').read())
+preference_list = json.loads(open(PATH + 'data/preference.json', 'r', encoding='utf-8').read())
 # def save_preference
 def save_preference():
 	global PREFERENCE_LOCK
 	while PREFERENCE_LOCK:
 		time.sleep(0.1)
 	PREFERENCE_LOCK = True
-	with open(PATH + 'preference.json', 'w', encoding='utf-8') as f:
+	with open(PATH + 'data/preference.json', 'w', encoding='utf-8') as f:
 		f.write(json.dumps(preference_list))
 	PREFERENCE_LOCK = False
 
