@@ -1,5 +1,5 @@
 {
-	"info_start": "[info] your messege will be told to my master.\nafter /say you can talk to me.\nby using /done to end conversation.",
+	"info_start": "[info] your messege will be told to my master.\nafter /say you can talk to me.\nby using /done to end conversation.\nby using /receipt_switch to enable/disable receipt.",
 
 	"info_receipt_on":  "[info] receipt enabled now.",
 	"info_receipt_off": "[info] receipt disabled now.",
@@ -22,6 +22,9 @@
 	"warning_conversation_end": "[warning] to run other bot functions, you need to run /done to end conversation first.",
 	"notify_conversation_start": "[notify] you can talk to me now.",
 	"notify_conversation_end": "[notify] conversation end now.",
+
+	"operation_markdown_enable": "[operation] markdown enabled now.",
+	"operation_markdown_disable": "[operation] markdown disabled now.",
 
 	"operation_block": "[operation] the user you point is blocked now.",
 	"operation_unblock": "[operation] the user you point is unblocked now.",

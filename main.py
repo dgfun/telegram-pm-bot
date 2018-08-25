@@ -73,6 +73,9 @@ def init_user(user):
 		# /block and /unblock
 		preference_list[str(user.id)]['blacklist'] = False
 
+		# /markdown and /unmarkdown
+		preference_list[str(CONFIG['Admin'])]['markdown'] = True
+
 		preference_list[str(user.id)]['name'] = user.full_name
 		threading.Thread(target=save_preference).start()
 		return
@@ -104,7 +107,10 @@ def process_msg(bot, update):
 					elif tryf_update_msg.photo:
 						bot.send_photo(chat_id=sender_id, photo=tryf_update_msg.photo[0], caption=tryf_update_msg.caption)
 					elif tryf_update_msg.text_markdown:
-						bot.send_message(chat_id=sender_id, text=tryf_update_msg.text_markdown, parse_mode=telegram.ParseMode.MARKDOWN)
+						if preference_list[str(CONFIG['Admin'])]['markdown'] :
+							bot.send_message(chat_id=sender_id, text=tryf_update_msg.text_markdown)
+						else:
+							bot.send_message(chat_id=sender_id, text=tryf_update_msg.text)
 					else:
 						bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_notsupporttype'])
 						return
@@ -208,6 +214,14 @@ def process_command(bot, update):
 						bot.send_message(chat_id=idf_fromuser, text=LANG['error_reply_nodata'])
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
+		##enable markdown
+		elif command[0] == 'markdown' :
+			preference_list[str(CONFIG['Admin'])]['markdown'] = True
+			bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_enable'])
+		##disable markdown
+		elif command[0] == 'unmarkdown' :
+			preference_list[str(CONFIG['Admin'])]['markdown'] = False
+			bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_disable'])
 		# only when 'conversation' false, can operate other bot directives, as to make /done useful
 		elif not preference_list[str(idf_fromuser)]['conversation'] :
 			##receipt switch

@@ -38,5 +38,7 @@ python main.py
 | say             | start conversation                         | /say                                       |
 | done            | end conversation                           | /done                                      |
 | receipt_switch  | enable or disable receipt                  | /receipt_switch                            |
+| markdown        | enable  markdown  (admin only)             | /markdown                                  |
+| unmarkdown      | disable markdown  (admin only)             | /unmarkdown                                |
 | messege_info    | info of the messege you point (admin only) | /messege_info                              |
 | version         | version of bot                             | /version                                   |
