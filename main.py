@@ -158,7 +158,7 @@ def process_command(bot, update):
 	# load global 'preference_list'
 	global preference_list
 	# define 'bot command'
-	command = update.message.text[1:].replace(CONFIG['Username'], '').lower().split()
+	command = update.message.text[1:].replace(CONFIG['Username'], '').lower().split()[0]
 	# define 'from_user.id'
 	idf_fromuser = update.message.from_user.id
 	## remove 'chat.id' due to the work by 'handlerf_Filters.private'
@@ -169,21 +169,21 @@ def process_command(bot, update):
 	if not preference_list[str(idf_fromuser)]['blacklist'] or idf_fromuser == CONFIG['Admin'] :
 		# bot directives independent to 'conversation' :
 		##bot start
-		if command[0] == 'start' :
+		if command == 'start' :
 			bot.send_message(chat_id=idf_fromuser, text=LANG['info_start'])
 			return
 		##start conversation
-		elif command[0] == 'say' :
+		elif command == 'say' :
 			preference_list[str(idf_fromuser)]['conversation'] = True
 			threading.Thread(target=save_preference).start()
 			bot.send_message(chat_id=idf_fromuser, text=LANG['notify_conversation_start'])
 		##end conversation
-		elif command[0] == 'done' :
+		elif command == 'done' :
 			preference_list[str(idf_fromuser)]['conversation'] = False
 			threading.Thread(target=save_preference).start()
 			bot.send_message(chat_id=idf_fromuser, text=LANG['notify_conversation_end'])
 		##messege-info you point
-		elif command[0] == 'msginfo' :
+		elif command == 'msginfo' :
 			if (idf_fromuser == CONFIG['Admin']) :
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
@@ -195,7 +195,7 @@ def process_command(bot, update):
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		##blacklist function to block user
-		elif command[0] == 'block' :
+		elif command == 'block' :
 			if (idf_fromuser == CONFIG['Admin']) :
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
@@ -207,7 +207,7 @@ def process_command(bot, update):
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		##blacklist function to unblock user
-		elif command[0] == 'unblock' :
+		elif command == 'unblock' :
 			if (idf_fromuser == CONFIG['Admin']) :
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
@@ -219,7 +219,7 @@ def process_command(bot, update):
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		##switch markdown
-		elif command[0] == 'markdown' :
+		elif command == 'markdown' :
 			preference_list[str(CONFIG['Admin'])]['markdown'] = (preference_list[str(CONFIG['Admin'])]['markdown'] == False)
 			threading.Thread(target=save_preference).start()
 			if preference_list[str(CONFIG['Admin'])]['markdown'] :
@@ -229,7 +229,7 @@ def process_command(bot, update):
 		# only when 'conversation' false, can operate other bot directives, as to make /done useful
 		elif not preference_list[str(idf_fromuser)]['conversation'] :
 			##switch receipt
-			if command[0] == 'receipt' :
+			if command == 'receipt' :
 				preference_list[str(idf_fromuser)]['receipt'] = (preference_list[str(idf_fromuser)]['receipt'] == False)
 				threading.Thread(target=save_preference).start()
 				if preference_list[str(idf_fromuser)]['receipt']:
@@ -237,7 +237,7 @@ def process_command(bot, update):
 				else:
 					bot.send_message(chat_id=idf_fromuser, text=LANG['info_receipt_off'])
 			##bot version
-			elif command[0] == 'version' :
+			elif command == 'version' :
 				bot.send_message(chat_id=idf_fromuser, text=LANG['info_version'])
 			else:
 				##when received not existed command
