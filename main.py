@@ -238,7 +238,7 @@ def process_command(bot, update):
 					bot.send_message(chat_id=idf_fromuser, text=LANG['info_receipt_off'])
 			##bot version
 			elif command[0] == 'version' :
-				bot.send_message(chat_id=idf_fromuser, text='Telegram PM Bot to concatnate your conversation between the bot and the sender.\n\nhttps://github.com/NewBugger/telegram-pm-bot')
+				bot.send_message(chat_id=idf_fromuser, text=LANG['info_version'])
 			else:
 				##when received not existed command
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_commandnotfound'])

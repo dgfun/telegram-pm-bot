@@ -1,6 +1,8 @@
 {
 	"info_start": "[info] your messege will be told to my master.\nafter /say you can talk to me.\nby using /done to end conversation.\nby using /receipt_switch to enable/disable receipt.",
 
+	"info_version": "[info] https://github.com/NewBugger/telegram-pm-bot",
+
 	"info_receipt_on":  "[info] receipt enabled now.",
 	"info_receipt_off": "[info] receipt disabled now.",
 
