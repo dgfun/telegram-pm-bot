@@ -1,5 +1,5 @@
 {
-	"info_start": "[info] your messege will be told to my master.\nafter /say you can talk to me.\nby using /done to end conversation.\nby using /receipt_switch to enable/disable receipt.",
+	"info_start": "[info] your messege will be told to my master.\nafter /say you can talk to me.\nby using /done to end conversation.\nby using /receipt to enable/disable receipt.",
 
 	"info_version": "[info] https://github.com/NewBugger/telegram-pm-bot",
 
