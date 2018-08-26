@@ -175,13 +175,15 @@ def process_command(bot, update):
 		##start conversation
 		elif command[0] == 'say' :
 			preference_list[str(idf_fromuser)]['conversation'] = True
+			threading.Thread(target=save_preference).start()
 			bot.send_message(chat_id=idf_fromuser, text=LANG['notify_conversation_start'])
 		##end conversation
 		elif command[0] == 'done' :
 			preference_list[str(idf_fromuser)]['conversation'] = False
+			threading.Thread(target=save_preference).start()
 			bot.send_message(chat_id=idf_fromuser, text=LANG['notify_conversation_end'])
 		##messege-info you point
-		elif command[0] == 'messege_info' :
+		elif command[0] == 'msginfo' :
 			if (idf_fromuser == CONFIG['Admin']) :
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
@@ -198,6 +200,7 @@ def process_command(bot, update):
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
 						preference_list[str(idf_fromuser)]['blacklist'] = True
+						threading.Thread(target=save_preference).start()
 						bot.send_message(chat_id=idf_fromuser, text=LANG['operation_block'])
 					else:
 						bot.send_message(chat_id=idf_fromuser, text=LANG['error_reply_nodata'])
@@ -209,23 +212,24 @@ def process_command(bot, update):
 				if update.message.reply_to_message:
 					if message_list.__contains__(str(update.message.reply_to_message.message_id)):
 						preference_list[str(idf_fromuser)]['blacklist'] = False
+						threading.Thread(target=save_preference).start()
 						bot.send_message(chat_id=idf_fromuser, text=LANG['operation_unblock'])
 					else:
 						bot.send_message(chat_id=idf_fromuser, text=LANG['error_reply_nodata'])
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
-		##enable markdown
+		##switch markdown
 		elif command[0] == 'markdown' :
-			preference_list[str(CONFIG['Admin'])]['markdown'] = True
-			bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_enable'])
-		##disable markdown
-		elif command[0] == 'unmarkdown' :
-			preference_list[str(CONFIG['Admin'])]['markdown'] = False
-			bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_disable'])
+			preference_list[str(CONFIG['Admin'])]['markdown'] = (preference_list[str(CONFIG['Admin'])]['markdown'] == False)
+			threading.Thread(target=save_preference).start()
+			if preference_list[str(CONFIG['Admin'])]['markdown'] :
+				bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_enable'])
+			else:
+				bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_disable'])
 		# only when 'conversation' false, can operate other bot directives, as to make /done useful
 		elif not preference_list[str(idf_fromuser)]['conversation'] :
-			##receipt switch
-			if command[0] == 'receipt_switch' :
+			##switch receipt
+			if command[0] == 'receipt' :
 				preference_list[str(idf_fromuser)]['receipt'] = (preference_list[str(idf_fromuser)]['receipt'] == False)
 				threading.Thread(target=save_preference).start()
 				if preference_list[str(idf_fromuser)]['receipt']:

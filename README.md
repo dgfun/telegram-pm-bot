@@ -20,7 +20,7 @@ modify those on `/config.json` :
 ```c
 {
     "Admin": 0,       // ID of admin account (number id)
-    "Token": "",      // Token of bot
+    "Token": "0",      // Token of bot
     "Lang": "en"      // name of the lang file
 }
 ```
@@ -33,12 +33,11 @@ python main.py
 
 
 ## Directive
-| command         | function                                   | parameter                                  |
-| :---            | :---                                       | :---                                       |
-| say             | start conversation                         | /say                                       |
-| done            | end conversation                           | /done                                      |
-| receipt_switch  | enable or disable receipt                  | /receipt_switch                            |
-| markdown        | enable  markdown  (admin only)             | /markdown                                  |
-| unmarkdown      | disable markdown  (admin only)             | /unmarkdown                                |
-| messege_info    | info of the messege you point (admin only) | /messege_info                              |
-| version         | version of bot                             | /version                                   |
+| command         | function                                     | parameter                                  |
+| :---            | :---                                         | :---                                       |
+| say             | start conversation                           | /say                                       |
+| done            | end   conversation                           | /done                                      |
+| receipt         | enable or disable receipt                    | /receipt                                   |
+| markdown        | enable or disable markdown (admin only)      | /markdown                                  |
+| msginfo         | info of the messege you specify (admin only) | /msginfo                                   |
+| version         | version of bot                               | /version                                   |
