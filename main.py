@@ -245,7 +245,6 @@ def process_command(bot, update):
 		# ask user to /done
 		else:
 			bot.send_message(chat_id=idf_fromuser, text=LANG['warning_conversation_end'])
-	
 	else:
 		#cancel /block notification to user output.
 		#bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_blocked'])
