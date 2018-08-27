@@ -166,10 +166,13 @@ def process_command(bot, update):
 	global preference_list
 	# define 'bot command'
 	command = update.message.text[1:].replace(CONFIG['Username'], '').lower().split()[0]
-	# define 'from_user.id'
-	idf_fromuser = update.message.from_user.id
 	# init user
-	init_fromuser(idf_fromuser)
+	if update.message.from_user.id != CONFIG['Admin']:
+		idf_fromuser = update.message.from_user.id
+		init_fromuser(idf_fromuser)
+	else:
+		idf_fromuser = CONFIG['Admin']
+		init_admin(idf_fromuser)
 	## remove 'chat.id' due to the work by 'handlerf_Filters.private'
 	##define 'chat.id'
 	#idf_chat = update.message.chat_id
@@ -230,12 +233,12 @@ def process_command(bot, update):
 		##switch markdown
 		elif command == 'markdown' :
 			if (idf_fromuser == CONFIG['Admin']) :
-				preference_list[str(CONFIG['Admin'])]['markdown'] = (preference_list[str(CONFIG['Admin'])]['markdown'] == False)
+				preference_list[str(idf_fromuser)]['markdown'] = (preference_list[str(idf_fromuser)]['markdown'] == False)
 				threading.Thread(target=save_preference).start()
-				if preference_list[str(CONFIG['Admin'])]['markdown'] :
-					bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_enable'])
+				if preference_list[str(idf_fromuser)]['markdown'] :
+					bot.send_message(chat_id=idf_fromuser, text=LANG['operation_markdown_enable'])
 				else:
-					bot.send_message(chat_id=CONFIG['Admin'], text=LANG['operation_markdown_disable'])
+					bot.send_message(chat_id=idf_fromuser, text=LANG['operation_markdown_disable'])
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		# only when 'conversation' false, can operate other bot directives, as to make /done useful
