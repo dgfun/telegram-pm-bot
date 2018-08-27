@@ -71,7 +71,8 @@ def init_user(idf_fromuser):
 		# /receipt
 		preference_list[str(idf_fromuser)]['receipt'] = True
 		# /markdown
-		preference_list[str(CONFIG['Admin'])]['markdown'] = True
+		if idf_fromuser == CONFIG['Admin'] :
+			preference_list[str(CONFIG['Admin'])]['markdown'] = True
 
 		preference_list[str(idf_fromuser)]['name'] = user.full_name
 		threading.Thread(target=save_preference).start()
