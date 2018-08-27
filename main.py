@@ -242,7 +242,7 @@ def process_command(bot, update):
 			else:
 				bot.send_message(chat_id=idf_fromuser, text=LANG['warning_user_adminonly'])
 		# only when 'conversation' false, can operate other bot directives, as to make /done useful
-		elif not preference_list[str(idf_fromuser)]['conversation'] :
+		elif not preference_list[str(idf_fromuser)]['conversation']  or idf_fromuser == CONFIG['Admin'] :
 			##switch receipt
 			if command == 'receipt' :
 				preference_list[str(idf_fromuser)]['receipt'] = (preference_list[str(idf_fromuser)]['receipt'] == False)
