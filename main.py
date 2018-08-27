@@ -59,26 +59,36 @@ def save_preference():
 
 
 # def user preference init
-def init_user(idf_fromuser):
+def init_fromuser(fromuser):
 	global preference_list
-	if not preference_list.__contains__(str(idf_fromuser)):
-		preference_list[str(idf_fromuser)] = {}
-
+	if not preference_list.__contains__(str(fromuser)):
+		preference_list[str(fromuser)] = {}
 		# /say and /done
-		preference_list[str(idf_fromuser)]['conversation'] = False
+		preference_list[str(fromuser)]['conversation'] = False
 		# /block and /unblock
-		preference_list[str(idf_fromuser)]['blacklist'] = False
+		preference_list[str(fromuser)]['blacklist'] = False
 		# /receipt
-		preference_list[str(idf_fromuser)]['receipt'] = True
-		# /markdown
-		if idf_fromuser == CONFIG['Admin'] :
-			preference_list[str(CONFIG['Admin'])]['markdown'] = True
-
-		preference_list[str(idf_fromuser)]['name'] = user.full_name
+		preference_list[str(fromuser)]['receipt'] = True
+		preference_list[str(fromuser)]['name'] = user.full_name
 		threading.Thread(target=save_preference).start()
 		return
-	if preference_list[str(idf_fromuser)]['name'] != user.full_name:
-		preference_list[str(idf_fromuser)]['name'] = user.full_name
+	if preference_list[str(fromuser)]['name'] != user.full_name:
+		preference_list[str(fromuser)]['name'] = user.full_name
+		threading.Thread(target=save_preference).start()
+
+def init_admin(admin):
+	global preference_list
+	if not preference_list.__contains__(str(admin)):
+		preference_list[str(admin)] = {}
+		# /receipt
+		preference_list[str(admin)]['receipt'] = True
+		# /markdown
+		preference_list[str(admin)]['markdown'] = True
+		preference_list[str(admin)]['name'] = user.full_name
+		threading.Thread(target=save_preference).start()
+		return
+	if preference_list[str(admin)]['name'] != user.full_name:
+		preference_list[str(admin)]['name'] = user.full_name
 		threading.Thread(target=save_preference).start()
 
 
@@ -86,7 +96,7 @@ def init_user(idf_fromuser):
 def process_msg(bot, update):
 	global message_list
 	if update.message.from_user.id == CONFIG['Admin']:
-		init_user(CONFIG['Admin'])
+		init_admin(CONFIG['Admin'])
 		if update.message.reply_to_message:
 			if message_list.__contains__(str(update.message.reply_to_message.message_id)):
 				tryf_update_msg = update.message
@@ -126,7 +136,7 @@ def process_msg(bot, update):
 			bot.send_message(chat_id=CONFIG['Admin'], text=LANG['error_reply_notarget'])
 	else:
 		idf_fromuser = update.message.from_user.id
-		init_user(idf_fromuser)
+		init_fromuser(idf_fromuser)
 		# only when 'conversation' is true
 		if preference_list[str(idf_fromuser)]['conversation'] and not preference_list[str(idf_fromuser)]['blacklist'] :
 			# forward messege to me
@@ -159,7 +169,7 @@ def process_command(bot, update):
 	# define 'from_user.id'
 	idf_fromuser = update.message.from_user.id
 	# init user
-	init_user(idf_fromuser)
+	init_fromuser(idf_fromuser)
 	## remove 'chat.id' due to the work by 'handlerf_Filters.private'
 	##define 'chat.id'
 	#idf_chat = update.message.chat_id
