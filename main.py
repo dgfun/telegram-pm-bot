@@ -117,9 +117,9 @@ def process_msg(bot, update):
 						bot.send_sticker(chat_id=sender_id, sticker=tryf_update_msg.sticker)
 					elif tryf_update_msg.photo:
 						bot.send_photo(chat_id=sender_id, photo=tryf_update_msg.photo[0], caption=tryf_update_msg.caption)
-					elif tryf_update_msg.text_markdown:
+					elif tryf_update_msg.text:
 						if preference_list[str(CONFIG['Admin'])]['markdown'] :
-							bot.send_message(chat_id=sender_id, text=tryf_update_msg.text_markdown)
+							bot.send_message(chat_id=sender_id, text=tryf_update_msg.text, parse_mode=telegram.ParseMode.MARKDOWN)
 						else:
 							bot.send_message(chat_id=sender_id, text=tryf_update_msg.text)
 					else:
